@@ -97,6 +97,32 @@ echo -e "=============================================="
 ![Berlint no1](https://user-images.githubusercontent.com/96837287/198835595-21ae3742-0220-401f-b5c0-4fbcc97fa33e.jpg)
 ![Eden no1](https://user-images.githubusercontent.com/96837287/198835600-76568997-2991-41bd-ab8a-e567b879183e.jpg)
 
+## Soal Nomor 2
+Untuk mempermudah mendapatkan informasi mengenai misi dari Handler, bantulah loid membuat website utama dengan akses wise.yyy.com dengan alias `www.wise.yyy.com`
+
+Sebelum itu, konfigurasikan `/etc/bind/named.conf.local` pada DNS Mater yaitu node WISE dengan domain wise.D09.com. Setelah dikonfigurasikan, buatlah direktori `/etc/bind/wise`. Kemudian, buatlah file `wise.D09.com` setelah command `mkdir /etc/bind/wise` pada direktori yang baru saja dibuat dan isilah file seperti dibawah ini. Setelah selesai maka menambahkan command `service bind9 restart` untuk merestart bind9. Untuk menjalankannya gunakan command `bash nomor2.sh`
+
+```
+```
+
+Kemudian setting nameserver pada node client yaitu node SSS dan node Garden. Lalu, melakukan pengecekan dengan `host =t CNAME www.wise.D09.com` dan `www.wise.D09.com -c 3`. Untuk menjalankannya gunakan command `bash nomor2.sh`
+
+```
+echo -e '
+nameserver 192.189.2.2  ; IP WISE
+nameserver 192.168.122.1
+' > /etc/resolv.conf
+
+echo -e "==============================="
+host -t CNAME www.wise.D09.com
+echo -e "TEST ALIAS wise.D09.com"
+echo -e "==============================="
+echo -e "TEST ARAH PING www.wise.D09.com (mengarah ke IP WISE)"
+ping www.wise.D09.com -c 5
+echo -e "==============================="
+```
+
+### Dokumentasi
 
 ## Soal Nomor 3
 > Setelah itu ia juga ingin membuat subdomain `eden.wise.yyy.com` dengan alias `www.eden.wise.yyy.com` yang diatur DNS-nya di `WISE` dan mengarah ke `Eden`
