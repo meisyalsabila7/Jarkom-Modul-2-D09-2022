@@ -82,6 +82,7 @@ iface eth0 inet static
 ## Soal Nomor 1
 > WISE akan dijadikan sebagai DNS Master, Berlint akan dijadikan DNS Slave, dan Eden akan digunakan sebagai Web Server. Terdapat 2 Client yaitu SSS, dan Garden. Semua node terhubung pada router Ostania, sehingga dapat mengakses internet.
 
+### Pengerjaan
 Melakukan pengecekan internet ke semua node dengan `bash nomor1.sh` setelah setting konfigurasi dan menjalankan start command. script tersebut terdapat pada root semua node.
 
 ```
@@ -107,6 +108,7 @@ echo -e "=============================================="
 ## Soal Nomor 2
 Untuk mempermudah mendapatkan informasi mengenai misi dari Handler, bantulah loid membuat website utama dengan akses wise.yyy.com dengan alias `www.wise.yyy.com`
 
+### Pengerjaan
 Sebelum itu, konfigurasikan `/etc/bind/named.conf.local` pada DNS Mater yaitu node WISE dengan domain wise.D09.com. Setelah dikonfigurasikan, buatlah direktori `/etc/bind/wise`. Kemudian, buatlah file `wise.D09.com` setelah command `mkdir /etc/bind/wise` pada direktori yang baru saja dibuat dan isilah file seperti dibawah ini. Setelah selesai maka menambahkan command `service bind9 restart` untuk merestart bind9. Untuk menjalankannya gunakan command `bash nomor2.sh`
 
 ```
