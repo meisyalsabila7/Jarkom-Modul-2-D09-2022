@@ -93,9 +93,16 @@ echo -e "=============================================="
 
 ### Dokumentasi
 ![Ostania no1](https://user-images.githubusercontent.com/96837287/198835583-c2a67b81-8b1d-4bb7-9453-a729ca75651a.jpg) 
+
 ![Wise no1](https://user-images.githubusercontent.com/96837287/198835591-46fd5ee8-b184-4536-8d2e-7a8364058665.jpg)
+
 ![Berlint no1](https://user-images.githubusercontent.com/96837287/198835595-21ae3742-0220-401f-b5c0-4fbcc97fa33e.jpg)
+
 ![Eden no1](https://user-images.githubusercontent.com/96837287/198835600-76568997-2991-41bd-ab8a-e567b879183e.jpg)
+
+![Garden No 1](https://user-images.githubusercontent.com/96837287/198838558-01d4b882-56bb-40e3-8f31-4f08d031d8e8.jpg)
+
+![sss no1](https://user-images.githubusercontent.com/96837287/198838560-2a3af9ad-23a1-420e-8134-674a4cc4610b.jpg)
 
 ## Soal Nomor 2
 Untuk mempermudah mendapatkan informasi mengenai misi dari Handler, bantulah loid membuat website utama dengan akses wise.yyy.com dengan alias `www.wise.yyy.com`
@@ -150,6 +157,9 @@ echo -e "==============================="
 ```
 
 ### Dokumentasi
+![sss no2](https://user-images.githubusercontent.com/96837287/198838564-78848863-bf9f-4dbf-91e6-b31557c1e9a1.jpg)
+
+![garden no2](https://user-images.githubusercontent.com/96837287/198838570-c6f43e96-cc68-49e9-bdc8-79412aed8aac.jpg)
 
 ## Soal Nomor 3
 > Setelah itu ia juga ingin membuat subdomain `eden.wise.yyy.com` dengan alias `www.eden.wise.yyy.com` yang diatur DNS-nya di `WISE` dan mengarah ke `Eden`
