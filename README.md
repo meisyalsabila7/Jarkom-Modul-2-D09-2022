@@ -80,7 +80,7 @@ iface eth0 inet static
 ```
 
 ## Soal Nomor 1
-WISE akan dijadikan sebagai DNS Master, Berlint akan dijadikan DNS Slave, dan Eden akan digunakan sebagai Web Server. Terdapat 2 Client yaitu SSS, dan Garden. Semua node terhubung pada router Ostania, sehingga dapat mengakses internet.
+> WISE akan dijadikan sebagai DNS Master, Berlint akan dijadikan DNS Slave, dan Eden akan digunakan sebagai Web Server. Terdapat 2 Client yaitu SSS, dan Garden. Semua node terhubung pada router Ostania, sehingga dapat mengakses internet.
 
 Melakukan pengecekan internet ke semua node dengan `bash nomor1.sh` setelah setting konfigurasi dan menjalankan start command. script tersebut terdapat pada root semua node.
 
@@ -96,3 +96,15 @@ echo -e "=============================================="
 ![Wise no1](https://user-images.githubusercontent.com/96837287/198835591-46fd5ee8-b184-4536-8d2e-7a8364058665.jpg)
 ![Berlint no1](https://user-images.githubusercontent.com/96837287/198835595-21ae3742-0220-401f-b5c0-4fbcc97fa33e.jpg)
 ![Eden no1](https://user-images.githubusercontent.com/96837287/198835600-76568997-2991-41bd-ab8a-e567b879183e.jpg)
+
+
+## Soal Nomor 3
+> Setelah itu ia juga ingin membuat subdomain `eden.wise.yyy.com` dengan alias `www.eden.wise.yyy.com` yang diatur DNS-nya di `WISE` dan mengarah ke `Eden`
+
+
+## Soal Nomor 4
+> Buat juga reverse domain untuk domain utama
+
+
+## Soal Nomor 1
+> Agar dapat tetap dihubungi jika server WISE bermasalah, buatlah juga Berlint sebagai DNS Slave untuk domain utama
