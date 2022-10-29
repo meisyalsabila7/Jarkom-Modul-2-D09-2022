@@ -103,6 +103,33 @@ Untuk mempermudah mendapatkan informasi mengenai misi dari Handler, bantulah loi
 Sebelum itu, konfigurasikan `/etc/bind/named.conf.local` pada DNS Mater yaitu node WISE dengan domain wise.D09.com. Setelah dikonfigurasikan, buatlah direktori `/etc/bind/wise`. Kemudian, buatlah file `wise.D09.com` setelah command `mkdir /etc/bind/wise` pada direktori yang baru saja dibuat dan isilah file seperti dibawah ini. Setelah selesai maka menambahkan command `service bind9 restart` untuk merestart bind9. Untuk menjalankannya gunakan command `bash nomor2.sh`
 
 ```
+echo -e '
+zone "wise.D09.com" {
+        type master;
+        file "/etc/bind/wise/wiseD09.com";
+};
+ ' > /etc/bind/named.conf.local
+
+mkdir /etc/bind/wise
+
+echo -e '
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     wise.D09.com. root.wise.D09.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      wise.D09.com.
+@       IN      A       192.189.3.2	; IP WISE
+www	IN	CNAME	wise.D09.com.
+' > /etc/bind/wise/wise.D09.com
+
+service bind9 restart
 ```
 
 Kemudian setting nameserver pada node client yaitu node SSS dan node Garden. Lalu, melakukan pengecekan dengan `host =t CNAME www.wise.D09.com` dan `www.wise.D09.com -c 3`. Untuk menjalankannya gunakan command `bash nomor2.sh`
