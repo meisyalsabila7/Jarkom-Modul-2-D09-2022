@@ -166,10 +166,154 @@ echo -e "==============================="
 ## Soal Nomor 3
 > Setelah itu ia juga ingin membuat subdomain `eden.wise.yyy.com` dengan alias `www.eden.wise.yyy.com` yang diatur DNS-nya di `WISE` dan mengarah ke `Eden`
 
+* Wise
+```
+echo -e '
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     wise.D09.com.   root.wise.D09.com. (
+                                2       ; Serial
+                        604800          ; Refresh
+                        86400           ; Retry
+                        2419200         ; Expire
+                        604800  )       ; Negative Cache TTL
+;
+@               IN      NS      wise.D09.com.
+@               IN      A       192.189.2.2             ; IP WISE
+www             IN      CNAME   wise.D09.com.
+eden            IN      A       192.189.3.3             ; IP Eden
+www.eden        IN      CNAME   eden.wise.D09.com.      
+@               IN      AAAA    ::1
+' > /etc/bind/wise/wise.D09.com
+
+service bind9 restart
+```
+
+* SSS & Garden
+```
+echo -e "======================================"
+echo -e "TEST PING SUBDOMAIN (mengarah ke host IP Eden)"
+ping eden.wise.D09.com -c 5
+echo -e "======================================"
+echo -e "TEST ALIAS dari eden.wise.D09.com"
+host -t CNAME www.eden.wise.D09.com
+echo -e "======================================"
+```
+
+### Dokumentasi
+<img width="480" alt="Screenshot_20221029_215522" src="https://user-images.githubusercontent.com/94627623/198839272-0ce7ca29-b5bd-464c-83f3-baeb9bf7ce21.png">
+<img width="479" alt="Screenshot_20221029_215650" src="https://user-images.githubusercontent.com/94627623/198839273-1466e21f-934b-47fd-a292-42ba21ca93d7.png">
+<img width="479" alt="Screenshot_20221029_215703" src="https://user-images.githubusercontent.com/94627623/198839277-4106ae6b-8bfe-4e36-860d-e6228eeae688.png">
+
 
 ## Soal Nomor 4
 > Buat juga reverse domain untuk domain utama
 
+* Wise
+```
+echo -e '
+zone "wise.D09.com" {
+        type master;
+        file "/etc/bind/wise/wise.D09.com";
+};
 
-## Soal Nomor 1
+zone "2.189.192.in-addr.arpa"{
+        type master;
+        file "/etc/bind/wise/2.189.192.in-addr.arpa";
+};
+
+' > /etc/bind/named.conf.local
+
+echo -e '
+$TTL    604800
+@       IN      SOA     wise.D09.com.   root.wise.D09.com. (
+                                2       ; Serial
+                        604800          ; Refresh
+                        86400           ; Retry
+			2419200         ; Expire
+                        604800 )        ; Negative Cache TTL
+;
+2.189.192.in-addr.arpa. IN      NS      wise.D09.com.
+2                       IN      PTR     wise.D09.com.
+' > /etc/bind/wise/2.189.192.in-addr.arpa
+
+service bind9 restart
+```
+
+* SSS & Garden
+```
+echo -e "=================================="
+echo -e "TES REVERSE DOMAIN: "
+host -t PTR 192.189.2.2
+echo -e "=================================="
+```
+
+### Dokumentasi
+<img width="929" alt="Screenshot_20221029_220243" src="https://user-images.githubusercontent.com/94627623/198839360-26349099-5184-47da-9369-be743ad3cc97.png">
+<img width="930" alt="Screenshot_20221029_220255" src="https://user-images.githubusercontent.com/94627623/198839361-c7281d90-ecb7-41c8-bce7-3a3de70ec3f3.png">
+<img width="930" alt="Screenshot_20221029_220306" src="https://user-images.githubusercontent.com/94627623/198839365-1e025083-76d9-4428-b2f8-51d8fc46de63.png">
+
+
+## Soal Nomor 5
 > Agar dapat tetap dihubungi jika server WISE bermasalah, buatlah juga Berlint sebagai DNS Slave untuk domain utama
+
+* Wise
+```
+echo -e '
+zone "wise.D09.com" {
+        type master;
+        notify yes;
+        also-notify { 192.189.3.2; };
+        allow-transfer { 192.189.3.2; };
+        file "/etc/bind/wise/wise.D09.com";
+};
+
+zone "2.189.192.in-addr.arpa"{
+        type master;
+        file "/etc/bind/wise/2.189.192.in-addr.arpa";
+};
+' > /etc/bind/named.conf.local
+
+service bind9 restart
+```
+
+* Berlint
+```
+echo -e '
+zone "wise.D09.com" {
+        type slave;
+        masters { 192.189.2.2; };
+        file "/var/lib/bind/wise.D09.com";
+};
+' > /etc/bind/named.conf.local
+
+service bind9 restart
+```
+
+* SSS & Garden
+```
+echo -e '
+nameserver 192.189.2.2  ; IP WISE
+nameserver 192.189.3.2  ; IP Berlint
+nameserver 192.168.122.1
+' > /etc/resolv.conf
+
+echo -e "========================================="
+echo "TES SLAVE DNS, DNS MASTER DIBERHENTIKAN"
+ping wise.D09.com -c 5
+echo -e "========================================="
+```
+
+### Dokumentasi
+<img width="742" alt="Screenshot_20221029_220829" src="https://user-images.githubusercontent.com/94627623/198839449-baeba9a2-9b73-4e49-8fcb-8746883fdf2d.png">
+<img width="742" alt="Screenshot_20221029_220838" src="https://user-images.githubusercontent.com/94627623/198839460-f8ed8f4a-feb5-4a8e-b9ba-082d0bf612d9.png">
+<img width="757" alt="Screenshot_20221029_220900" src="https://user-images.githubusercontent.com/94627623/198839464-f0eab11d-af22-45ca-98fe-fb2f4c424f4a.png">
+<img width="758" alt="Screenshot_20221029_220910" src="https://user-images.githubusercontent.com/94627623/198839467-f7330612-2739-4fa9-88fa-d3313c71467f.png">
+
+
+
+## Kendala
+* Jumlah soal dan waktu kurang seimbang
+* Waktu pengerjaan praktikum kurang tepat karena dibarengi dengan minggu2 ETS
